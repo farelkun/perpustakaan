@@ -20,6 +20,7 @@ class DetailResource extends JsonResource
             'return_date' => $this->return_date,
             'penalty' => $this->penalty,
             'is_status' => $this->is_status(),
+            'status' => $this->status,
             'detail' => $this->transaction_detail,
             'admin' => $this->admin->nama,
             'user' => $this->user->nama,

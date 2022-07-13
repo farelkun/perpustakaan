@@ -20,8 +20,10 @@ class TransactionResource extends JsonResource
             'return_date' => $this->return_date,
             'penalty' => $this->penalty,
             'is_status' => $this->is_status(),
+            'status' => $this->status,
             'admin' => $this->admin,
             'user' => $this->user,
+            'detail' => $this->transaction_detail,
         ];
     }
 }

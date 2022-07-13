@@ -44,6 +44,7 @@ class TransactionDetailHelper implements DetailInterface
             $arrDetail[$key]['transaction_id'] = $this->parent->id;
             $arrDetail[$key]['book_id'] = $val['book_id'];
         }
+        // dd($arrDetail);
 
         return $arrDetail;
     }

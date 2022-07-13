@@ -1,0 +1,69 @@
+<div class="container-fluid" *ngIf="!isOpenForm">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <h1>
+                        Daftar Items
+                    </h1>
+                    <div role="group" class="btn-group btn-group-sm btn-group-justified blocks">
+                        <button  type="button" class="btn btn-sm btn-outline-secondary mr-2">
+                            <i class="fa fa-search font-size-14 align-middle mr-1"></i> Pencarian
+                        </button>
+                        <button type="button" class="btn btn-sm btn-primary mr-2" (click)="createBook()">
+                            <i class="fa fa-plus font-size-14 align-middle mr-1"></i> Tambah Items
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead class="thead-light">
+                            <tr>
+                                <td>Title</td>
+                                <td>Author</td>
+                                <td>Publisher</td>
+                                <td>ISBN</td>
+                                <td>Stock</td>
+                                <td width="90"></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let val of listBooks; index as i; trackBy:trackByIndex">
+                                <td class="vertical-middle">{{val.title}}</td>
+                                <td class="vertical-middle">{{val.author}}</td>
+                                <td class="vertical-middle">{{val.publisher}}</td>
+                                <td class="vertical-middle">{{val.isbn}}</td>
+                                <td class="vertical-middle">{{val.stock}}</td>
+                                <td class="vertical-middle text-right">
+                                    <a href="javascript: void(0);" class="align-middle mr-2" (click)="updateBook(val)" placement="left" container="body" ngbTooltip="Ubah">
+                                        <i class="fa fa-edit font-size-14"></i>
+                                    </a>
+                                    <a href="javascript: void(0);" class="align-middle" (click)="deleteBook(val.id)" placement="left" container="body" ngbTooltip="Hapus">
+                                        <i class="fa fa-trash font-size-14"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid" *ngIf="isOpenForm">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <h1>
+                        {{titleCard}}
+                    </h1>
+                </div>
+                <div class="card-body">
+                    <book-form [id]="modelId" (afterSave)="showForm(false); getBook()"></book-form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

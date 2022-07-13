@@ -1,0 +1,84 @@
+<form>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label class="col-md-4 required">Admin Name</label>
+                <div class="col-md-8">
+                    <ng-select [(ngModel)]="formModel.admin" [items]="listAdmins" bindLabel="nama" placeholder="Pilih Promo" name="admin" appendTo="body"></ng-select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 required">User Name</label>
+                <div class="col-md-8">
+                    <ng-select [(ngModel)]="formModel.user" [items]="listUsers" bindLabel="nama" placeholder="Pilih Promo" name="user" appendTo="body"></ng-select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 required">Borrow Date</label>
+                <div class="col-md-8">
+                    <input [(ngModel)]="formModel.borrow_date" type="date" name="borrow_date" class="form-control">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 required">Return Date</label>
+                <div class="col-md-8">
+                    <input [(ngModel)]="formModel.return_date" type="date" name="return_date" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label class="col-md-4 required">Status</label>
+                <div class="col-md-8">
+                    <div class="btn-group" role="group" ngbRadioGroup name="status"
+                        [(ngModel)]="formModel.status">
+                        <label ngbButtonLabel class="btn-info">
+                            <input ngbButton type="radio" class="btn-check" value="borrowed"> Borrowed
+                        </label>
+                        <label ngbButtonLabel class="btn-info">
+                            <input ngbButton type="radio" class="btn-check" value="returned"> Returned
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-hover">
+                <thead class="thead-light">
+                    <tr>
+                        <th width="90">
+                            <button type="button" class="btn btn-sm btn-success" (click)="addDetail()">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </th>
+                        <th class="align-middle">Book</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let val of formModel.detail; index as i; trackBy:trackByIndex">
+                        <td class="align-middle">
+                            <button type="button" class="btn btn-sm btn-danger" (click)="removeDetail(formModel.detail, i)">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <ng-select [(ngModel)]="val.book_id" [items]="listBooks" bindValue="id" bindLabel="title" placeholder="Book" name="book_id_{{i}}" appendTo="body"></ng-select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group row">
+                <div class="col-md-12 text-right">
+                    <button type="button" class="btn btn-outline-secondary mr-2" (click)="back()">Daftar Item</button>
+                    <button type="button" class="btn btn-primary" (click)="save()">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

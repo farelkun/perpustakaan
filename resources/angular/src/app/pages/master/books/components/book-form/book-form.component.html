@@ -1,0 +1,91 @@
+<form>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label class="col-md-4 required">Title</label>
+                <div class="col-md-8">
+                    <input [(ngModel)]="formModel.title" type="text" name="title" class="form-control"
+                        placeholder="Title">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 required">Author</label>
+                <div class="col-md-8">
+                    <input [(ngModel)]="formModel.author" type="text" name="author" class="form-control"
+                        placeholder="Author">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 required">Publisher</label>
+                <div class="col-md-8">
+                    <input [(ngModel)]="formModel.publisher" type="text" name="publisher" class="form-control"
+                        placeholder="Publisher">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 required">ISBN</label>
+                <div class="col-md-8">
+                    <input [(ngModel)]="formModel.isbn" type="text" name="isbn" class="form-control"
+                        placeholder="ISBN">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 required">Description</label>
+                <div class="col-md-8">
+                    <textarea class="form-control" [(ngModel)]="formModel.description" name="description"
+                        placeholder="Write down the details of this book" rows="3"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label class="col-md-4 required">Category</label>
+                <div class="col-md-8">
+                    <ng-select [(ngModel)]="formModel.book_category" [items]="listCategories" bindLabel="name" placeholder="Select Category" name="m_category_id" appendTo="body"></ng-select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 required">Status</label>
+                <div class="col-md-8">
+                    <div class="btn-group" role="group" ngbRadioGroup name="status"
+                        [(ngModel)]="formModel.status">
+                        <label ngbButtonLabel class="btn-info">
+                            <input ngbButton type="radio" class="btn-check" value="available"> Available
+                        </label>
+                        <label ngbButtonLabel class="btn-info">
+                            <input ngbButton type="radio" class="btn-check" value="unavailable"> Unavailable
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <img
+                    [src]="coverPreview ? coverPreview : formModel.coverUrl"
+                    width="200px"
+                    class="img-thumbnail"
+                    alt=""
+                />
+                <div class="form-group">
+                    <label for="cover">Cover</label>
+                    <input
+                        (change)="fileChangeEvent($event)"
+                        type="file"
+                        name="cover"
+                        class="form-control"
+                        id="cover"
+                    />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group row">
+                <div class="col-md-12 text-right">
+                    <button type="button" class="btn btn-outline-secondary mr-2" (click)="back()">Back</button>
+                    <button type="button" class="btn btn-primary" (click)="save()">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

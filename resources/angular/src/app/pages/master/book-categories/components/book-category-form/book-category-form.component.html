@@ -1,0 +1,22 @@
+<form>
+    <div class="form-group row">
+        <label class="col-md-4 required">Name</label>
+        <div class="col-md-8">
+            <input [(ngModel)]="formModel.name" type="text" name="name" class="form-control"
+                placeholder="Name Category">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4 required">Description</label>
+        <div class="col-md-8">
+            <input [(ngModel)]="formModel.description" type="description" name="description" class="form-control"
+                placeholder="Description">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4"></label>
+        <div class="col-md-8">
+            <button type="submit" class="btn btn-primary" (click)="save()">Simpan</button>
+        </div>
+    </div>
+</form>

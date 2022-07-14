@@ -28,7 +28,7 @@ class BookController extends Controller
     public function index(Request $request)
     {
         $filter = ['name' => $request->name ?? ''];
-        $books = $this->book->getAll($filter, 5, $request->sort ?? '');
+        $books = $this->book->getAll($filter, 2, $request->sort ?? '');
 
         return response()->success(new BookCollection($books));
     }

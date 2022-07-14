@@ -12,6 +12,7 @@ import { AuthService } from 'src/app/pages/auth/services/auth.service';
     styleUrls: ['./transaction-list.component.scss']
 })
 export class TransactionListComponent implements OnInit {
+    dtOptions: DataTables.Settings = {};
     userLogin;
     listTransactions: [];
     titleCard: string;
@@ -38,14 +39,52 @@ export class TransactionListComponent implements OnInit {
     }
 
     getTransaction() {
-        this.transactionService.getTransactions({
-            user_login: this.userLogin.akses,
-            user_id: this.userLogin.id
-        }).subscribe((res: any) => {
-            this.listTransactions = res.data.list;
-        }, (err: any) => {
-            console.log(err);
-        });
+        // this.transactionService.getTransactions({
+        //     user_login: this.userLogin.akses,
+        //     user_id: this.userLogin.id
+        // }).subscribe((res: any) => {
+        //     this.listTransactions = res.data.list;
+        // }, (err: any) => {
+        //     console.log(err);
+        // });
+        this.dtOptions = {
+            serverSide: true,
+            processing: true,
+            ordering: false,
+            searching: false,
+            pagingType: "full_numbers",
+            ajax: (dataTablesParameter: any, callback) => {
+
+                const page = parseInt(dataTablesParameter.start) / parseInt(dataTablesParameter.length) + 1;
+                const params = {
+                    page: page,
+                    offset: dataTablesParameter.start,
+                    limit: dataTablesParameter.length,
+                    user_login: this.userLogin.akses,
+                    user_id: this.userLogin.id
+                };
+                this.transactionService.getTransactions(params).subscribe((res: any) => {
+                    this.listTransactions = res.data.list;
+                    // this.totalItems = res.data.totalData;
+
+                    setTimeout(() => {
+                        var hidden = document.querySelector('.odd') as HTMLElement;
+                        if (this.listTransactions != []) {
+                            hidden.style.display = 'none';
+                        } else {
+                            hidden.style.display = 'block';
+                        }
+                        //   this.progressService.finishLoading();
+                    }, 500);
+
+                    callback({
+                        recordsTotal: res.data.meta.total,
+                        recordsFiltered: res.data.meta.total,
+                        data: []
+                    });
+                });
+            },
+        }
     }
 
     showForm(show) {

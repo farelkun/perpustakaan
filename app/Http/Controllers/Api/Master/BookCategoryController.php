@@ -25,7 +25,7 @@ class BookCategoryController extends Controller
     public function index(Request $request)
     {
         $filter = ['nama' => $request->nama ?? ''];
-        $listCategories = $this->category->getAll($filter, 5, $request->sort ?? '');
+        $listCategories = $this->category->getAll($filter, 2, $request->sort ?? '');
 
         return response()->success(new BookCategoryCollection($listCategories));
     }

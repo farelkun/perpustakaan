@@ -11,7 +11,7 @@ import { BookService } from '../../services/book.service';
     styleUrls: ['./book-list.component.scss']
 })
 export class BookListComponent implements OnInit {
-
+    dtOptions: DataTables.Settings = {};
     listBooks: [];
     titleCard: string;
     modelId: number;
@@ -32,11 +32,48 @@ export class BookListComponent implements OnInit {
     }
 
     getBook() {
-        this.bookService.getBooks([]).subscribe((res: any) => {
-            this.listBooks = res.data.list;
-        }, (err: any) => {
-            console.log(err);
-        });
+        // this.bookService.getBooks([]).subscribe((res: any) => {
+        //     this.listBooks = res.data.list;
+        // }, (err: any) => {
+        //     console.log(err);
+        // });
+        this.dtOptions = {
+            serverSide: true,
+            processing: true,
+            ordering: false,
+            searching: false,
+            pagingType: "full_numbers",
+            ajax: (dataTablesParameter: any, callback) => {
+
+                const page = parseInt(dataTablesParameter.start) / parseInt(dataTablesParameter.length) + 1;
+                const params = {
+                    page: page,
+                    offset: dataTablesParameter.start,
+                    limit: dataTablesParameter.length,
+
+                };
+                this.bookService.getBooks(params).subscribe((res: any) => {
+                    this.listBooks = res.data.list;
+                    // this.totalItems = res.data.totalData;
+
+                    setTimeout(() => {
+                        var hidden = document.querySelector('.odd') as HTMLElement;
+                        if (this.listBooks != []) {
+                            hidden.style.display = 'none';
+                        } else {
+                            hidden.style.display = 'block';
+                        }
+                        //   this.progressService.finishLoading();
+                    }, 500);
+
+                    callback({
+                        recordsTotal: res.data.meta.total,
+                        recordsFiltered: res.data.meta.total,
+                        data: []
+                    });
+                });
+            },
+        }
     }
 
     showForm(show) {

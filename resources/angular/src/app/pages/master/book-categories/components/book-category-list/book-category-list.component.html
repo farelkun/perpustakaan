@@ -7,16 +7,13 @@
                         Book Category List
                     </h1>
                     <div role="group" class="btn-group btn-group-sm btn-group-justified blocks">
-                        <button  type="button" class="btn btn-sm btn-outline-secondary mr-2">
-                            <i class="fa fa-search font-size-14 align-middle mr-1"></i> Pencarian
-                        </button>
                         <button type="button" class="btn btn-sm btn-primary mr-2" (click)="createBookCategory(formBookCategory)">
                             <i class="fa fa-plus font-size-14 align-middle mr-1"></i> Add Category
                         </button>
                     </div>
                 </div>
                 <div class="card-body">
-                    <table class="table table-hover">
+                    <table datatable class="table table-hover" data-page-length="2" [dtOptions]="dtOptions">
                         <thead class="thead-light">
                             <tr>
                                 <td>Name</td>
@@ -25,7 +22,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let val of listBookCategories; index as i; trackBy:trackByIndex">
+                            <tr *ngFor="let val of listBookCategories; index as i;">
                                 <td class="vertical-middle">{{val.name}}</td>
                                 <td class="vertical-middle">{{val.description}}</td>
                                 <td class="vertical-middle text-right">

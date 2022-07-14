@@ -10,7 +10,7 @@ import { BookCategoryService } from '../../services/book-category.service';
     styleUrls: ['./book-category-list.component.scss']
 })
 export class BookCategoryListComponent implements OnInit {
-
+    dtOptions: DataTables.Settings = {};
     listBookCategories: [];
     titleModal: string;
     modelId: number;
@@ -30,11 +30,48 @@ export class BookCategoryListComponent implements OnInit {
     }
 
     getBookCategories() {
-        this.bookCategoryService.getBookCategories([]).subscribe((res: any) => {
-            this.listBookCategories = res.data.list;
-        }, (err: any) => {
-            console.log(err);
-        });
+        // this.bookCategoryService.getBookCategories([]).subscribe((res: any) => {
+        //     this.listBookCategories = res.data.list;
+        // }, (err: any) => {
+        //     console.log(err);
+        // });
+        this.dtOptions = {
+            serverSide: true,
+            processing: true,
+            ordering: false,
+            searching: false,
+            pagingType: "full_numbers",
+            ajax: (dataTablesParameter: any, callback) => {
+
+                const page = parseInt(dataTablesParameter.start) / parseInt(dataTablesParameter.length) + 1;
+                const params = {
+                    page: page,
+                    offset: dataTablesParameter.start,
+                    limit: dataTablesParameter.length,
+
+                };
+                this.bookCategoryService.getBookCategories(params).subscribe((res: any) => {
+                    this.listBookCategories = res.data.list;
+                    // this.totalItems = res.data.totalData;
+
+                    setTimeout(() => {
+                        var hidden = document.querySelector('.odd') as HTMLElement;
+                        if (this.listBookCategories != []) {
+                            hidden.style.display = 'none';
+                        } else {
+                            hidden.style.display = 'block';
+                        }
+                        //   this.progressService.finishLoading();
+                    }, 500);
+
+                    callback({
+                        recordsTotal: res.data.meta.total,
+                        recordsFiltered: res.data.meta.total,
+                        data: []
+                    });
+                });
+            },
+        }
     }
 
     createBookCategory(modal) {

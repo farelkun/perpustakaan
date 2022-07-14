@@ -4,19 +4,16 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <h1>
-                        Daftar Transaction
+                        Transaction List
                     </h1>
                     <div role="group" class="btn-group btn-group-sm btn-group-justified blocks">
-                        <button  type="button" class="btn btn-sm btn-outline-secondary mr-2">
-                            <i class="fa fa-search font-size-14 align-middle mr-1"></i> Pencarian
-                        </button>
                         <button type="button" class="btn btn-sm btn-primary mr-2" (click)="createTransaction()">
                             <i class="fa fa-plus font-size-14 align-middle mr-1"></i> Add Transaction
                         </button>
                     </div>
                 </div>
                 <div class="card-body">
-                    <table class="table table-hover">
+                    <table datatable class="table table-hover" data-page-length="5" [dtOptions]="dtOptions">
                         <thead class="thead-light">
                             <tr>
                                 <td>Admin</td>
@@ -30,7 +27,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let val of listTransactions; index as i; trackBy:trackByIndex">
+                            <tr *ngFor="let val of listTransactions; index as i;">
                                 <td class="vertical-middle">{{val.admin.nama}}</td>
                                 <td class="vertical-middle">{{val.user.nama}}</td>
                                 <td class="vertical-middle">{{val.start_date}}</td>

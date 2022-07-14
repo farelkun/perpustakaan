@@ -19,8 +19,24 @@ class UserSeeder extends Seeder
             'id' => 1,
             'nama' => 'Super Admin',
             'akses' => '{
-                "user": {"create": true, "update": true, "delete": true, "view": true},
-                "roles": {"create": true, "update": true, "delete": true, "view": true}
+                "user":{"create":true,"update":true,"delete":true,"view":true},
+                "roles":{"create":true,"update":true,"delete":true,"view":true},
+                "book_category":{"create":true,"update":true,"delete":true,"view":true},
+                "book":{"create":true,"update":true,"delete":true,"view":true},
+                "transaction":{"create":true,"update":true,"delete":true,"view":true},
+                "item":{"create":false,"update":false,"delete":false,"view":false}
+            }',
+        ]);
+
+        DB::table('user_roles')->insert([
+            'id' => 2,
+            'nama' => 'Customer',
+            'akses' => '{
+                "user":{"create":false,"update":false,"delete":false,"view":false},
+                "roles":{"create":false,"update":false,"delete":false,"view":false},
+                "book_category":{"create":false,"update":false,"delete":false,"view":false},
+                "book":{"create":false,"update":false,"delete":false,"view":true},
+                "transaction":{"create":false,"update":false,"delete":false,"view":true}
             }',
         ]);
 

@@ -25,7 +25,7 @@ class DetailResource extends JsonResource
             'status' => $this->status,
             'cover' => $this->cover,
             'coverUrl' => $this->coverUrl(),
-            'book_category' => $this->book_category,
+            'book_category' => $this->book_category
         ];
     }
 }

@@ -16,7 +16,8 @@ class TransactionResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'borrow_date' => $this->borrow_date,
+            'start_date' => $this->start_date,
+            'end_date' => $this->end_date,
             'return_date' => $this->return_date,
             'penalty' => $this->penalty,
             'is_status' => $this->is_status(),

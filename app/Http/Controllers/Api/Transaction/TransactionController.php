@@ -25,8 +25,9 @@ class TransactionController extends Controller
     public function index(Request $request)
     {
         $filter = [
-            'borrow_date' => $request->borrow_date ?? '',
-            'return_date' => $request->return_date ?? ''
+            'user_id'  => $request->user_login == 'Customer' ? $request->user_id : '',
+            'start_date' => $request->start_date ?? '',
+            'end_date' => $request->end_date ?? ''
         ];
         $listCategories = $this->transaction->getAll($filter, 5, $request->sort ?? '');
 

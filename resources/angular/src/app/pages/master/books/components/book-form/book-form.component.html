@@ -30,6 +30,13 @@
                 </div>
             </div>
             <div class="form-group row">
+                <label class="col-md-4 required">Stock</label>
+                <div class="col-md-8">
+                    <input [(ngModel)]="formModel.stock" type="number" name="stock" class="form-control"
+                        placeholder="Stock">
+                </div>
+            </div>
+            <div class="form-group row">
                 <label class="col-md-4 required">Description</label>
                 <div class="col-md-8">
                     <textarea class="form-control" [(ngModel)]="formModel.description" name="description"

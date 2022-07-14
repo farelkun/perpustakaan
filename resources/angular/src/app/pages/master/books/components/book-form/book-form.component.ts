@@ -137,6 +137,7 @@ export class BookFormComponent implements OnInit {
     getCategories() {
         this.bookCategoryService.getBookCategories([]).subscribe((res: any) => {
             this.listCategories = res.data.list;
+            console.log(this.listCategories);
         }, err => {
             console.log(err);
         })

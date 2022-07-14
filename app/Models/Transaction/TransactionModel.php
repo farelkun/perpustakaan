@@ -43,7 +43,8 @@ class TransactionModel extends Model implements ModelInterface
     protected $fillable = [
         'admin_id',
         'user_id',
-        'borrow_date',
+        'start_date',
+        'end_date',
         'return_date',
         'penalty',
         'status'
@@ -75,6 +76,13 @@ class TransactionModel extends Model implements ModelInterface
             'admin',
             'user'
         ]);
+
+        // dd($filter['user_id']);
+
+        if (!empty($filter['user_id'])) {
+            $transaction->where('user_id', 'LIKE', '%'.$filter['user_id'].'%');
+        }
+
         $sort = $sort ?: 'id DESC';
         $transaction->orderByRaw($sort);
         $itemPerPage = $itemPerPage > 0 ? $itemPerPage : false;

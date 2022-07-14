@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Helpers\Transaction;
+
+use App\Models\Master\BookModel;
 use App\Models\Transaction\TransactionModel;
 use App\Repository\CrudInterface;
+use Carbon\Carbon;
 
 /**
  * Helper untuk manajemen transaction
@@ -71,6 +74,15 @@ class TransactionHelper implements CrudInterface
 
             $newTransaction = $this->transactionModel->store($payload);
 
+
+            foreach ($detailTransaction as $item) {
+                $book = BookModel::find($item['book_id']);
+                if($payload['status'] == 'borrowed') {
+                    $book->stock = ($book->stock - 1);
+                    $book->save();
+                }
+            }
+
             // Simpan detail item
             if (!empty($detailTransaction)) {
                 $detail = new TransactionDetailHelper($newTransaction);
@@ -84,7 +96,7 @@ class TransactionHelper implements CrudInterface
         } catch (\Throwable $th) {
             return [
                 'status' => false,
-                'error' => $th->getMessage()
+                'error' => $th->getMessage() . ' ' . $th->getLine()
             ];
         }
     }
@@ -107,8 +119,29 @@ class TransactionHelper implements CrudInterface
             $detailTransaction = $payload['detail'] ?? [];
             unset($payload['detail']);
 
+            if($payload['status'] == 'returned'){
+                if($payload['return_date'] > $payload['end_date']){
+                    $end_date = Carbon::parse($payload['end_date']);
+                    $return_date = Carbon::parse($payload['return_date']);
+                    $diff = $end_date->diff($return_date)->days;
+
+                    $payload['penalty'] = $diff * 10000;
+                }
+            }
+            foreach ($detailTransaction as $item) {
+                $book = BookModel::find($item['book_id']);
+                if($payload['status'] == 'returned'){
+                    if(isset($payload['return_date'])){
+                        $book->update([
+                            'stock' => $book->stock + 1
+                        ]);
+                    }
+                }
+            }
+
             $updateTransaction = $this->transactionModel->edit($payload, $id);
             $dataTransaction = $this->getById($updateTransaction);
+
 
             // Simpan detail Transaction
             if (!empty($detailTransaction)) {
@@ -123,7 +156,7 @@ class TransactionHelper implements CrudInterface
         } catch (\Throwable $th) {
             return [
                 'status' => false,
-                'error' => $th->getMessage()
+                'error' => $th->getMessage() . ' ' . $th->getLine()
             ];
         }
     }

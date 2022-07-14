@@ -67,29 +67,29 @@ class BookModel extends Model implements ModelInterface
 
     public function book_category()
     {
-        return $this->hasMany(BookCategoryModel::class, 'id', 'm_category_id');
+        return $this->belongsTo(BookCategoryModel::class, 'm_category_id', 'id');
     }
 
     public function getAll(array $filter, int $itemPerPage = 0, string $sort = ''): object
     {
-        $dataItem = $this->query();
+        $dataBook = $this->query();
 
-        $dataItem->with(['book_category']);
+        $dataBook->with(['book_category']);
 
         if (!empty($filter['title'])) {
-            $dataItem->where('title', 'LIKE', '%'.$filter['title'].'%');
+            $dataBook->where('title', 'LIKE', '%'.$filter['title'].'%');
         }
 
         $sort = $sort ?: 'id DESC';
-        $dataItem->orderByRaw($sort);
+        $dataBook->orderByRaw($sort);
         $itemPerPage = $itemPerPage > 0 ? $itemPerPage : false;
 
-        return $dataItem->paginate($itemPerPage)->appends('sort', $sort);
+        return $dataBook->paginate($itemPerPage)->appends('sort', $sort);
     }
 
     public function getById(int $id): object
     {
-        return $this->query()->with('book_category')->find($id);
+        return $this->query()->with(['book_category'])->find($id);
     }
 
     public function store(array $payload)

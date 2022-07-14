@@ -18,7 +18,8 @@ export class TransactionFormComponent implements OnInit {
     coverPreview: string;
     formModel : {
         id: number,
-        borrow_date: string,
+        start_date: string,
+        end_date: string,
         return_date: string,
         penalty: number,
         is_status: string,
@@ -69,7 +70,8 @@ export class TransactionFormComponent implements OnInit {
         this.mode = 'add';
         this.formModel = {
             id: 0,
-            borrow_date: '',
+            start_date: '',
+            end_date: '',
             return_date: '',
             penalty: 0,
             is_status: '',

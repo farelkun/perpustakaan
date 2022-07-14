@@ -128,11 +128,10 @@ class BookHelper implements CrudInterface
             }
 
             $updateBook = $this->bookModel->edit($payload, $id);
-            $dataBook = $this->getById($updateBook);
 
             return [
                 'status' => true,
-                'data' => $dataBook
+                'data' => $this->getById($id)
             ];
         } catch (\Throwable $th) {
             return [

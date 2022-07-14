@@ -10,7 +10,7 @@
 
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item dropdown" ngbDropdown>
+                <li class="nav-item dropdown" ngbDropdown *ngIf="userLogin.akses === 'Super Admin'">
                     <a class="nav-link dropdown-toggle arrow-none text-dark" (click)="onMenuClick($event)"
                         href="javascript: void(0);" id="topnav-components" role="button" ngbDropdownToggle>
                         Setting
@@ -19,21 +19,19 @@
                     <div class="dropdown-menu row" aria-labelledby="topnav-dashboard" ngbDropdownMenu>
                         <a href="javascript: void(0);" class="col dropdown-item side-nav-link-ref" [routerLink]="['/master/users']">User</a>
                         <a href="javascript: void(0);" class="col dropdown-item side-nav-link-ref" [routerLink]="['/master/book-categories']">Book Categories</a>
-                        <a href="javascript: void(0);" class="col dropdown-item side-nav-link-ref" [routerLink]="['/master/books']">Book</a>
-                        <a href="javascript: void(0);" class="col dropdown-item side-nav-link-ref" [routerLink]="['/master/transactions']">Transaction</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown" ngbDropdown>
-                    <a class="nav-link dropdown-toggle arrow-none text-dark" (click)="onMenuClick($event)"
-                        href="javascript: void(0);" id="topnav-components" role="button" ngbDropdownToggle>
-                        Laporan
-                        <div class="arrow-down"></div>
+                    <a class="nav-link dropdown-toggle arrow-none text-dark"
+                        href="javascript: void(0);" id="topnav-components" role="button" [routerLink]="['/master/transactions']">
+                        Transaction
                     </a>
-                    <div class="dropdown-menu row" aria-labelledby="topnav-dashboard" ngbDropdownMenu>
-                        <a class="col dropdown-item side-nav-link-ref">Penjualan Menu</a>
-                        <a class="col dropdown-item side-nav-link-ref">Penjualan Customer</a>
-                        <a class="col dropdown-item side-nav-link-ref">Rekap Penjualan</a>
-                    </div>
+                </li>
+                <li class="nav-item dropdown" ngbDropdown>
+                    <a class="nav-link dropdown-toggle arrow-none text-dark"
+                        href="javascript: void(0);" id="topnav-components" role="button" [routerLink]="['/master/books']">
+                        Library
+                    </a>
                 </li>
             </ul>
         </div>

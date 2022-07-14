@@ -9,7 +9,7 @@ export class TransactionService {
     constructor(private landaService: LandaService) { }
 
     getTransactions(arrParameter) {
-        return this.landaService.DataGet('/v1/transactions', { arrParameter });
+        return this.landaService.DataGet('/v1/transactions', arrParameter);
     }
 
     getTransactionById(transactionId) {

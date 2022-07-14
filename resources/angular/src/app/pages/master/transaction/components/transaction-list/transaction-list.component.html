@@ -21,9 +21,11 @@
                             <tr>
                                 <td>Admin</td>
                                 <td>User</td>
-                                <td>Borrow Date</td>
+                                <td>Start Date</td>
+                                <td>End Date</td>
                                 <td>Return Date</td>
                                 <td>Status</td>
+                                <td>Penalty</td>
                                 <td width="90"></td>
                             </tr>
                         </thead>
@@ -31,9 +33,11 @@
                             <tr *ngFor="let val of listTransactions; index as i; trackBy:trackByIndex">
                                 <td class="vertical-middle">{{val.admin.nama}}</td>
                                 <td class="vertical-middle">{{val.user.nama}}</td>
-                                <td class="vertical-middle">{{val.borrow_date}}</td>
+                                <td class="vertical-middle">{{val.start_date}}</td>
+                                <td class="vertical-middle">{{val.end_date}}</td>
                                 <td class="vertical-middle">{{val.return_date}}</td>
                                 <td class="vertical-middle">{{val.is_status}}</td>
+                                <td class="vertical-middle">{{val.penalty}}</td>
                                 <td class="vertical-middle text-right">
                                     <a href="javascript: void(0);" class="align-middle mr-2" (click)="updateTransaction(val)" placement="left" container="body" ngbTooltip="Ubah">
                                         <i class="fa fa-edit font-size-14"></i>

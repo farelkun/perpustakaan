@@ -14,19 +14,25 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-md-4 required">Borrow Date</label>
+                <label class="col-md-4 required">Start Date</label>
                 <div class="col-md-8">
-                    <input [(ngModel)]="formModel.borrow_date" type="date" name="borrow_date" class="form-control">
+                    <input [(ngModel)]="formModel.start_date" type="date" name="start_date" class="form-control">
                 </div>
             </div>
+            <div class="form-group row">
+                <label class="col-md-4 required">End Date</label>
+                <div class="col-md-8">
+                    <input [(ngModel)]="formModel.end_date" type="date" name="end_date" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
             <div class="form-group row">
                 <label class="col-md-4 required">Return Date</label>
                 <div class="col-md-8">
                     <input [(ngModel)]="formModel.return_date" type="date" name="return_date" class="form-control">
                 </div>
             </div>
-        </div>
-        <div class="col-md-6">
             <div class="form-group row">
                 <label class="col-md-4 required">Status</label>
                 <div class="col-md-8">

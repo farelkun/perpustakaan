@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
             'id' => 1,
             'nama' => 'Super Admin',
             'akses' => '{
-                "user": {"create": true, "update": true, "delete": true, "view": true}, 
+                "user": {"create": true, "update": true, "delete": true, "view": true},
                 "roles": {"create": true, "update": true, "delete": true, "view": true}
             }',
         ]);
@@ -28,9 +28,9 @@ class UserSeeder extends Seeder
         DB::table('user_auth')->insert([
             'id' => 1,
             'user_roles_id' => 1,
-            'nama' => 'Wahyu Agung',
-            'email' => 'agung@landa.co.id',
-            'password' => Hash::make('devGanteng'),
+            'nama' => 'Farel Putra Hidayat',
+            'email' => 'admin@landa.co.id',
+            'password' => Hash::make('password'),
             'updated_security' => date('Y-m-d H:i:s')
         ]);
     }
